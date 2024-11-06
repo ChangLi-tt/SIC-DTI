@@ -1,13 +1,20 @@
 # SIC-DTI
 
-#Dependencies
+# Dependencies
 
-Dependencies:
-python 3.8+
-pytorch
-numpy
-pandas
-sklearn
-tqdm
+Dependencies: <br>
+- python 3.8+  <br>
+- pytorch  <br>
+- numpy<br>
+- pandas<br>
+- sklearn<br>
+- tqdm<br>
+
+# Training
+`python main.py --data [--data] [--split]`<br>
+Parameters:<br>
+- `--data`: select `<dataset name>` from `BindingDB`, `BioSNAP`, `Human`<br>
+- `--split`: select `<split>` from `random`, `cold`<br>
+
 
 
