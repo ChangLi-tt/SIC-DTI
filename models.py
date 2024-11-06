@@ -2,7 +2,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch
 from dgllife.model.gnn import GCN
-# from ACmix import ACmix
 from HorNet import HorNet
 from ConvFormer import Fea_extractor
 from models import BINDTI
@@ -33,17 +32,13 @@ def cross_entropy_logits(linear_output, label, weights=None):
     n = F.softmax(linear_output, dim=1)[:, 1]
     max_class = class_output.max(1)
     y_hat = max_class[1]  # get the index of the max log-probability
-    # 根据是否提供了权重计算交叉熵损失
     if weights is None:
-        # 如果没有提供权重，使用标准的负对数似然损失函数（NLLLoss）
         loss = nn.NLLLoss()(class_output, label.type_as(y_hat).view(label.size(0)))
     else:
-        # 如果提供了权重，计算加权的负对数似然损失函数
         losses = nn.NLLLoss(reduction="none")(class_output, label.type_as(y_hat).view(label.size(0)))
         loss = torch.sum(weights * losses) / torch.sum(weights)
     return n, loss
 
-##### ??????  ######
 def entropy_logits(linear_output):   
     p = F.softmax(linear_output, dim=1)
     loss_ent = -torch.sum(p * (torch.log(p + 1e-5)), dim=1)
